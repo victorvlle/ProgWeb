@@ -1,0 +1,11 @@
+p{
+    font-size: 15pt;
+    padding-left: 50px;
+    padding-right: 50px;
+    border: 10px solid black;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 50px;
+    background-color: gray;
+}
