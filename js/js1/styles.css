@@ -1,0 +1,7 @@
+table{
+    align-self: center;
+    text-align: center;
+    margin: 15px;
+    overflow: hidden;
+    display: inline-block;
+}
