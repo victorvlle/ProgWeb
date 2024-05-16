@@ -1,0 +1,9 @@
+.barra{
+    background-color: red;
+    margin: 0.1cm;
+}
+.barras{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
