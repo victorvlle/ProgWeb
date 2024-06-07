@@ -87,7 +87,7 @@
         break;
       case "p":
         if (isPaused) {
-          if(frames >0 && eatTail()){
+          if(frames >0){
             startGameLoop();
             isPaused = false;
           }
@@ -103,7 +103,7 @@
         }else{
           restartGame();
         }
-      break;
+        break;
       default:
         break;
     }
