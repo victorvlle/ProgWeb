@@ -2,7 +2,7 @@
   let FPS = 5;
   const placar = document.getElementsByClassName("placar")[0];
   const SIZE = 40;
-  let isPaused = false;
+  let isPaused = true;
   let foodPosition = [];
   let newHead = [];
   let board;
@@ -56,7 +56,7 @@
     snake = new Snake([[4, 4], [4, 5], [4, 6]]);
     score = new Score();
     food = new Food();
-    loop = setInterval(run, 1000 / FPS);
+    startGameLoop();
   }
 
   window.addEventListener("keydown", (e) => {
@@ -75,13 +75,23 @@
         break;
       case "p":
         if (isPaused) {
-          startGameLoop();
-          isPaused = false;
+          if(frames >0){
+            startGameLoop();
+            isPaused = false;
+          }
         } else {
           clearInterval(loop);
           isPaused = true;
         }
         break;
+      case "s":
+        if(frames == 0){
+          startGameLoop();
+          isPaused = false;
+        }else{
+          restartGame();
+        }
+      break;
       default:
         break;
     }
@@ -101,6 +111,10 @@
           row.appendChild(field);
         }
       }
+    }
+
+    clear(){
+      document.body.removeChild(this.element);
     }
   }
 
@@ -151,27 +165,28 @@
   }
 
   function run() {
+    if(!isPaused){
+      increaseSpeed();
+      let aux = [];
+      aux[0] = newHead[0];
+      aux[1] = newHead[1];
 
-    increaseSpeed();
-    let aux = [];
-    aux[0] = newHead[0];
-    aux[1] = newHead[1];
-
-    if (snake.body[snake.body.length - 1][0] < 0 || snake.body[snake.body.length - 1][0] >= SIZE || snake.body[snake.body.length - 1][1] < 0 || snake.body[snake.body.length - 1][1] >= SIZE || eatTail()) {
-      clearInterval(loop);
-      alert("Game Over!");
-    }
-
-    if (aux[0] == foodPosition[0] && aux[1] == foodPosition[1]) {
-      if (food.color == "black") {
-        score.addPoint(1);
-      } else if (food.color == "red") {
-        score.addPoint(2);
+      if (snake.body[snake.body.length - 1][0] < 0 || snake.body[snake.body.length - 1][0] >= SIZE || snake.body[snake.body.length - 1][1] < 0 || snake.body[snake.body.length - 1][1] >= SIZE || eatTail()) {
+        clearInterval(loop);
+        alert("Game Over!");
       }
-      food = new Food();
-    }
 
-    snake.walk();
+      if (aux[0] == foodPosition[0] && aux[1] == foodPosition[1]) {
+        if (food.color == "black") {
+          score.addPoint(1);
+        } else if (food.color == "red") {
+          score.addPoint(2);
+        }
+        food = new Food();
+      }
+
+      snake.walk();
+    }
   }
 
   function startGameLoop() {
@@ -185,6 +200,16 @@
       console.log(FPS);
       startGameLoop();
     }
+  }
+
+  function restartGame(){
+    clearInterval(loop);
+    frames = 0;
+    FPS =5;
+    placar.textContent = "0000"
+    isPaused = true;
+    board.clear();
+    init();
   }
 
   window.addEventListener("load", init);
