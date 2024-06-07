@@ -32,10 +32,14 @@
     }
 
     generateRandom() {
-      let newPosition = [
+      let newPosition
+      do{ 
+        newPosition = [
         Math.floor(Math.random() * this.boardSize),
         Math.floor(Math.random() * this.boardSize)
-      ];
+        ];
+      }while(snake.body.some(slice => slice[0] == newPosition[0] && slice[1] == newPosition[1]));
+      
       return newPosition;
     }
 
@@ -62,20 +66,28 @@
   window.addEventListener("keydown", (e) => {
     switch (e.key) {
       case "ArrowUp":
-        snake.changeDirection(0);
+        if(snake.direction!=2){
+          snake.changeDirection(0); 
+        }
         break;
       case "ArrowRight":
-        snake.changeDirection(1);
+        if(snake.direction!=3){
+          snake.changeDirection(1);
+        }
         break;
       case "ArrowDown":
-        snake.changeDirection(2);
+        if(snake.direction!=0){
+          snake.changeDirection(2);
+        }
         break;
       case "ArrowLeft":
-        snake.changeDirection(3);
+        if(snake.direction!=1){
+          snake.changeDirection(3); 
+        }
         break;
       case "p":
         if (isPaused) {
-          if(frames >0){
+          if(frames >0 && eatTail()){
             startGameLoop();
             isPaused = false;
           }
@@ -196,7 +208,7 @@
 
   function increaseSpeed() {
     if (frames % 60 == 0 && frames>0) {
-      FPS += 1;
+      FPS += 0.1;
       console.log(FPS);
       startGameLoop();
     }
