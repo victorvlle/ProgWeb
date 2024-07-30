@@ -1,0 +1,10 @@
+@import "../../node_modules/bootstrap/scss/bootstrap";
+$primary-color: #4CAF50;
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    color: $primary-color;
+}

@@ -1,0 +1,19 @@
+<!-- src/views/productForm.handlebars -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulário de Produto</title>
+</head>
+<body>
+    <h1>{{#if product.id}}Editar{{else}}Adicionar{{/if}} Produto</h1>
+    <form action="/products{{#if product.id}}/{{product.id}}{{/if}}" method="post">
+        <input type="hidden" name="_method" value="{{#if product.id}}PUT{{else}}POST{{/if}}">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" value="{{product.name}}" required>
+        <label for="price">Preço:</label>
+        <input type="number" id="price" name="price" value="{{product.price}}" required>
+        <button type="submit">{{#if product.id}}Atualizar{{else}}Adicionar{{/if}}</button>
+    </form>
+    <a href="/products">Voltar</a>
+</body>
+</html>
